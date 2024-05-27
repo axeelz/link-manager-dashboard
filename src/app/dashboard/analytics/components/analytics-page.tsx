@@ -6,12 +6,27 @@ import type { IRedirectAndLink } from "@/types";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { ListFilter, RefreshCcw, X } from "lucide-react";
+import PaginationLinks from "@/app/dashboard/components/pagination-links";
 
 export default function AnalyticsPage({ redirects }: { redirects: IRedirectAndLink[] }) {
   const searchParams = useSearchParams();
+  const router = useRouter();
+
+  // Get the code from the query params to only show redirects for that code
   const code = searchParams.get("code");
   const onlyShow = code && code.length > 0 ? code : null;
-  const router = useRouter();
+
+  // Handle pagination
+  const page = searchParams.get("page") || "1";
+  if (Number(page) < 1) {
+    router.push("/dashboard/analytics");
+  }
+  const limit = "10";
+  const offset = page && limit ? (Number(page) - 1) * Number(limit) : 0;
+
+  const displayedRedirects = onlyShow
+    ? redirects.filter((redirect) => redirect.links?.code === onlyShow)
+    : redirects.slice(offset, offset + Number(limit));
 
   return (
     <>
@@ -41,9 +56,19 @@ export default function AnalyticsPage({ redirects }: { redirects: IRedirectAndLi
               </Button>
             </div>
           )}
-          <RedirectsList redirects={redirects} onlyShow={onlyShow} />
+          <RedirectsList redirects={displayedRedirects} />
         </CardContent>
       </Card>
+
+      {!onlyShow && (
+        <PaginationLinks
+          page={Number(page)}
+          limit={Number(limit)}
+          total={redirects.length}
+          hasNext={redirects.length > offset + Number(limit)}
+          hasPrev={offset > 0}
+        />
+      )}
     </>
   );
 }

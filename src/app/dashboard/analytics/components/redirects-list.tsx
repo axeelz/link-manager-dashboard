@@ -4,17 +4,7 @@ import type { IRedirectAndLink } from "@/types";
 import { getRelativeTimeString } from "@/lib/utils";
 import { LinkHeader } from "../../components/link-header";
 
-export default function RedirectsList({
-  redirects,
-  onlyShow,
-}: {
-  redirects: IRedirectAndLink[];
-  onlyShow: string | null;
-}) {
-  if (onlyShow) {
-    redirects = redirects.filter((redirect) => redirect.links?.code === onlyShow);
-  }
-
+export default function RedirectsList({ redirects }: { redirects: IRedirectAndLink[] }) {
   return (
     <div className="flex flex-col [&>div]:border-b [&>div:last-child]:border-0">
       {redirects.length === 0 && (
