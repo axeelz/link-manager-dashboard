@@ -20,7 +20,7 @@ export default function Error({ error, reset }: { error: Error & { digest?: stri
           <CardTitle>Oops...</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="flex items-center justify-center h-44">
+          <div className="flex items-center justify-center">
             <div className="flex flex-col items-center gap-3">
               <p className="text-muted-foreground">An error occurred while fetching the data</p>
               <code className="text-sm text-muted-foreground p-2 rounded-lg bg-muted">{error.message}</code>
