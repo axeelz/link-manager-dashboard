@@ -1,15 +1,8 @@
 "use client";
-import React from "react";
 import { motion } from "framer-motion";
-import dynamic from "next/dynamic";
-import { sampleArcs, globeConfig } from "@/app/no-link/data/config";
 import { useSearchParams } from "next/navigation";
 import { LINK_MANAGER_URL } from "@/lib/constants";
 import { ArrowRight } from "lucide-react";
-
-const World = dynamic(() => import("@/app/no-link/components/globe").then((m) => m.World), {
-  ssr: false,
-});
 
 function ErrorText({ code }: { code: string }) {
   if (code) {
@@ -37,8 +30,8 @@ export default function NoLinkPage() {
   }
 
   return (
-    <div className="flex flex-row items-center justify-center py-20 h-screen md:h-auto dark:bg-black bg-white relative w-full">
-      <div className="max-w-7xl mx-auto w-full relative overflow-hidden h-full md:h-[40rem] px-4">
+    <div className="h-screen dark:bg-black bg-white w-full">
+      <div className="max-w-7xl mx-auto w-full h-full flex justify-center items-center">
         <motion.div
           initial={{
             opacity: 0,
@@ -63,10 +56,6 @@ export default function NoLinkPage() {
             </span>
           </div>
         </motion.div>
-        <div className="absolute w-full bottom-0 inset-x-0 h-40 bg-gradient-to-b pointer-events-none select-none from-transparent dark:to-black to-white z-40" />
-        <div className="absolute w-full -bottom-20 left-0 h-96 z-10 md:h-5/6 hover:cursor-move">
-          <World data={sampleArcs} globeConfig={globeConfig} />
-        </div>
       </div>
     </div>
   );
