@@ -2,28 +2,46 @@ import type { ILink, IStats } from "@/types";
 import DashboardPage from "@/app/dashboard/components/dashboard-page";
 
 async function getLinks(): Promise<ILink[]> {
-  const res = await fetch(process.env.NEXT_PUBLIC_API_URL + "/links", {
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+  const apiKey = process.env.API_KEY;
+
+  if (!apiUrl || !apiKey) {
+    throw new Error("Missing required environment variables");
+  }
+
+  const res = await fetch(`${apiUrl}/links`, {
     headers: {
-      Authorization: `Bearer ${process.env.API_KEY}`,
+      Authorization: `Bearer ${apiKey}`,
     },
     cache: "no-store",
   });
+
   if (!res.ok) {
-    throw new Error("Failed to fetch links");
+    throw new Error(`Failed to fetch links: ${res.status} ${res.statusText}`);
   }
+
   return res.json();
 }
 
 async function getStats(): Promise<IStats> {
-  const res = await fetch(process.env.NEXT_PUBLIC_API_URL + "/links/stats", {
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+  const apiKey = process.env.API_KEY;
+
+  if (!apiUrl || !apiKey) {
+    throw new Error("Missing required environment variables");
+  }
+
+  const res = await fetch(`${apiUrl}/links/stats`, {
     headers: {
-      Authorization: `Bearer ${process.env.API_KEY}`,
+      Authorization: `Bearer ${apiKey}`,
     },
     cache: "no-store",
   });
+
   if (!res.ok) {
-    throw new Error("Failed to fetch stats");
+    throw new Error(`Failed to fetch stats: ${res.status} ${res.statusText}`);
   }
+
   return res.json();
 }
 
