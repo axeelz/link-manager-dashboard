@@ -1,5 +1,6 @@
 import type { ILink, IStats } from "@/types";
 import DashboardPage from "@/app/dashboard/components/dashboard-page";
+import { USER_AGENT } from "@/lib/constants";
 
 async function getLinks(): Promise<ILink[]> {
   const apiUrl = process.env.NEXT_PUBLIC_API_URL;
@@ -12,6 +13,7 @@ async function getLinks(): Promise<ILink[]> {
   const res = await fetch(`${apiUrl}/links`, {
     headers: {
       Authorization: `Bearer ${apiKey}`,
+      "User-Agent": USER_AGENT,
     },
     cache: "no-store",
   });
@@ -34,6 +36,7 @@ async function getStats(): Promise<IStats> {
   const res = await fetch(`${apiUrl}/links/stats`, {
     headers: {
       Authorization: `Bearer ${apiKey}`,
+      "User-Agent": USER_AGENT,
     },
     cache: "no-store",
   });

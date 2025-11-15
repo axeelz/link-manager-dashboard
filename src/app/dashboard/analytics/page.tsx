@@ -1,10 +1,12 @@
 import type { IRedirectAndLink } from "@/types";
 import AnalyticsPage from "@/app/dashboard/analytics/components/analytics-page";
+import { USER_AGENT } from "@/lib/constants";
 
 async function getRedirects(): Promise<IRedirectAndLink[]> {
-  const res = await fetch(process.env.NEXT_PUBLIC_API_URL + "/redirects", {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/redirects`, {
     headers: {
       Authorization: `Bearer ${process.env.API_KEY}`,
+      "User-Agent": USER_AGENT,
     },
     cache: "no-store",
   });

@@ -2,6 +2,7 @@
 
 import type { INewLinkPayload } from "@/types";
 import { revalidatePath } from "next/cache";
+import { USER_AGENT } from "@/lib/constants";
 
 interface ICreateUpdateLinkResponse {
   code: string | null;
@@ -14,6 +15,7 @@ export async function createLink(payload: INewLinkPayload): Promise<ICreateUpdat
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${process.env.API_KEY}`,
+      "User-Agent": USER_AGENT,
     },
     body: JSON.stringify(payload),
   });
@@ -36,6 +38,7 @@ export async function editLink(code: string, payload: INewLinkPayload): Promise<
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${process.env.API_KEY}`,
+      "User-Agent": USER_AGENT,
     },
     body: JSON.stringify(payload),
   });
@@ -57,6 +60,7 @@ export async function deleteLink(code: string) {
     method: "DELETE",
     headers: {
       Authorization: `Bearer ${process.env.API_KEY}`,
+      "User-Agent": USER_AGENT,
     },
   });
 
@@ -74,6 +78,7 @@ export async function deleteAllLinks() {
     method: "DELETE",
     headers: {
       Authorization: `Bearer ${process.env.API_KEY}`,
+      "User-Agent": USER_AGENT,
     },
   });
 
