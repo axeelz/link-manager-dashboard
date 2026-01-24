@@ -1,15 +1,16 @@
 "use client";
 
-import { LinkHeader } from "@/app/dashboard/components/link-header";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { ILink } from "@/types";
 import { BarChart, ExternalLink, RefreshCcw } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
+import { LinkHeader } from "@/app/dashboard/components/link-header";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Link as LinkType } from "@/types";
+
 export default function InteractiveDemo() {
-  const [demoLink, setDemoLink] = useState<ILink | null>(null);
+  const [demoLink, setDemoLink] = useState<LinkType | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   const fetchDemoLink = () => {
@@ -44,7 +45,7 @@ export default function InteractiveDemo() {
   return (
     <div className="flex flex-col gap-4">
       <LinkHeader link={demoLink} />
-      <div className="flex gap-2 sm:pl-12 flex-wrap">
+      <div className="flex flex-wrap gap-2 sm:pl-12">
         <Badge variant="secondary" className="gap-1">
           <BarChart className="h-4 w-4" />
           {demoLink.redirects} redirects
@@ -54,7 +55,11 @@ export default function InteractiveDemo() {
           <span>Refresh count</span>
         </Button>
         <Button size="sm" variant="outline" asChild>
-          <Link href={`${process.env.NEXT_PUBLIC_API_URL}/${demoLink.code}`} className="gap-1" target="_blank">
+          <Link
+            href={`${process.env.NEXT_PUBLIC_API_URL}/${demoLink.code}`}
+            className="gap-1"
+            target="_blank"
+          >
             <ExternalLink className="h-4 w-4" />
             <span>Open link in new tab</span>
           </Link>

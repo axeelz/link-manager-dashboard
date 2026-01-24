@@ -1,14 +1,15 @@
 "use client";
 
-import { useState } from "react";
 import { motion } from "framer-motion";
-import { cn } from "@/lib/utils";
 import Image from "next/image";
+import { useState } from "react";
+
+import { cn } from "@/lib/utils";
 
 type Tab = {
   title: string;
   value: string;
-  content?: string | React.ReactNode | any;
+  content?: React.ReactNode;
 };
 
 export const Tabs = ({
@@ -41,9 +42,10 @@ export const Tabs = ({
     <>
       <div
         className={cn(
-          "flex flex-row items-center justify-start [perspective:1000px] relative overflow-auto sm:overflow-visible no-visible-scrollbar max-w-full w-full",
-          containerClassName
-        )}>
+          "no-visible-scrollbar relative flex w-full max-w-full flex-row items-center justify-start overflow-auto [perspective:1000px] sm:overflow-visible",
+          containerClassName,
+        )}
+      >
         {propTabs.map((tab, idx) => (
           <button
             key={tab.title}
@@ -52,15 +54,19 @@ export const Tabs = ({
             }}
             onMouseEnter={() => setHovering(true)}
             onMouseLeave={() => setHovering(false)}
-            className={cn("relative px-4 py-2 rounded-full", tabClassName)}
+            className={cn("relative rounded-full px-4 py-2", tabClassName)}
             style={{
               transformStyle: "preserve-3d",
-            }}>
+            }}
+          >
             {active.value === tab.value && (
               <motion.div
                 layoutId="clickedbutton"
                 transition={{ type: "spring", bounce: 0.3, duration: 0.6 }}
-                className={cn("absolute inset-0 bg-gray-200 dark:bg-zinc-800 rounded-full ", activeTabClassName)}
+                className={cn(
+                  "absolute inset-0 rounded-full bg-gray-200 dark:bg-zinc-800 ",
+                  activeTabClassName,
+                )}
               />
             )}
 
@@ -94,7 +100,7 @@ export const FadeInDiv = ({
     return tab.value === tabs[0].value;
   };
   return (
-    <div className="relative w-full h-full">
+    <div className="relative h-full w-full">
       {tabs.map((tab, idx) => (
         <motion.div
           key={tab.value}
@@ -108,15 +114,16 @@ export const FadeInDiv = ({
           animate={{
             y: isActive(tab) ? [0, 40, 0] : 0,
           }}
-          className={cn("w-full h-full absolute top-0 left-0", className)}>
-          <div className="w-full overflow-hidden relative h-full rounded-2xl p-10 text-xl md:text-4xl font-bold text-white bg-gradient-to-br from-slate-900 to-slate-500">
+          className={cn("absolute top-0 left-0 h-full w-full", className)}
+        >
+          <div className="relative h-full w-full overflow-hidden rounded-2xl bg-gradient-to-br from-slate-900 to-slate-500 p-10 text-xl font-bold text-white md:text-4xl">
             <p>{tab.title}</p>
             <Image
               src={`/${tab.value}.webp`}
               alt={tab.title}
               width="1000"
               height="1000"
-              className="object-cover object-left-top h-[60%]  md:h-[90%] absolute -bottom-10 inset-x-0 w-[90%] rounded-xl mx-auto"
+              className="absolute inset-x-0 -bottom-10  mx-auto h-[60%] w-[90%] rounded-xl object-cover object-left-top md:h-[90%]"
             />
           </div>
         </motion.div>

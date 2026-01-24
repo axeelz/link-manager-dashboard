@@ -1,14 +1,15 @@
 "use client";
 
-import RedirectsList from "@/app/dashboard/analytics/components/redirects-list";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import type { IRedirectAndLink } from "@/types";
-import { useRouter, useSearchParams } from "next/navigation";
-import { Button } from "@/components/ui/button";
+import type { RedirectAndLink } from "@/types";
 import { ListFilter, RefreshCcw, X } from "lucide-react";
-import PaginationLinks from "@/app/dashboard/components/pagination-links";
+import { useRouter, useSearchParams } from "next/navigation";
 
-export default function AnalyticsPage({ redirects }: { redirects: IRedirectAndLink[] }) {
+import RedirectsList from "@/app/dashboard/analytics/components/redirects-list";
+import PaginationLinks from "@/app/dashboard/components/pagination-links";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+
+export default function AnalyticsPage({ redirects }: { redirects: RedirectAndLink[] }) {
   const searchParams = useSearchParams();
   const router = useRouter();
 
@@ -32,7 +33,12 @@ export default function AnalyticsPage({ redirects }: { redirects: IRedirectAndLi
     <>
       <div className="flex items-center">
         <div className="ml-auto flex items-center gap-2">
-          <Button size="sm" variant="outline" className="h-8 gap-1" onClick={() => location.reload()}>
+          <Button
+            size="sm"
+            variant="outline"
+            className="h-8 gap-1"
+            onClick={() => location.reload()}
+          >
             <RefreshCcw className="h-3.5 w-3.5" />
             <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">Refresh</span>
           </Button>
@@ -45,9 +51,9 @@ export default function AnalyticsPage({ redirects }: { redirects: IRedirectAndLi
         </CardHeader>
         <CardContent>
           {onlyShow && (
-            <div className="flex items-center gap-2 mb-4">
+            <div className="mb-4 flex items-center gap-2">
               <ListFilter className="h-4 w-4 text-muted-foreground" />
-              <p className="text-muted-foreground text-sm">
+              <p className="text-sm text-muted-foreground">
                 Only showing redirects for <strong>/{onlyShow}</strong>
               </p>
               <Button size="sm" variant="ghost" onClick={() => router.push("/dashboard/analytics")}>

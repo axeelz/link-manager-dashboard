@@ -1,5 +1,12 @@
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 import Image from "next/image";
+
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
 
 const files = ["links", "new", "redirects"];
 
@@ -9,7 +16,13 @@ export function CarouselScreenshots() {
       <CarouselContent>
         {files.map((file, index) => (
           <CarouselItem key={index}>
-            <Image src={`/mobile/${file}.webp`} alt={file} width={1170} height={2220} className="rounded-lg" />
+            <Image
+              src={`/mobile/${file}.webp`}
+              alt={file}
+              width={1170}
+              height={2220}
+              className="rounded-lg"
+            />
           </CarouselItem>
         ))}
       </CarouselContent>

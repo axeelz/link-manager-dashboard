@@ -1,8 +1,9 @@
-import type { ILink, IStats } from "@/types";
+import type { Link, Stats } from "@/types";
+
 import DashboardPage from "@/app/dashboard/components/dashboard-page";
 import { USER_AGENT } from "@/lib/constants";
 
-async function getLinks(): Promise<ILink[]> {
+async function getLinks(): Promise<Link[]> {
   const apiUrl = process.env.NEXT_PUBLIC_API_URL;
   const apiKey = process.env.API_KEY;
 
@@ -25,7 +26,7 @@ async function getLinks(): Promise<ILink[]> {
   return res.json();
 }
 
-async function getStats(): Promise<IStats> {
+async function getStats(): Promise<Stats> {
   const apiUrl = process.env.NEXT_PUBLIC_API_URL;
   const apiKey = process.env.API_KEY;
 

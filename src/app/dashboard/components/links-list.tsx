@@ -1,16 +1,7 @@
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { Badge } from "@/components/ui/badge";
+import type { Link as LinkType } from "@/types";
 import { BarChart, Clock, MoreHorizontal } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import type { ILink } from "@/types";
-import { getRelativeTimeString } from "@/lib/utils";
+
 import { deleteLink } from "@/app/actions";
 import {
   AlertDialog,
@@ -23,20 +14,37 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { getRelativeTimeString } from "@/lib/utils";
+
 import { LinkHeader } from "./link-header";
 
-export default function LinksList({ links, editLink }: { links: ILink[]; editLink: (link: ILink) => void }) {
+export default function LinksList({
+  links,
+  editLink,
+}: {
+  links: LinkType[];
+  editLink: (link: LinkType) => void;
+}) {
   return (
     <div className="flex flex-col [&>div]:border-b [&>div:last-child]:border-0">
       {links.length === 0 && (
-        <div className="flex items-center justify-center h-44">
+        <div className="flex h-44 items-center justify-center">
           <p className="text-muted-foreground">No links found</p>
         </div>
       )}
-      {links.map((link: ILink) => {
+      {links.map((link: LinkType) => {
         return (
           <AlertDialog key={link.id}>
-            <div className="flex flex-col gap-4 py-6 sm:px-4 sm:hover:bg-muted/50 transition-colors">
+            <div className="flex flex-col gap-4 py-6 transition-colors sm:px-4 sm:hover:bg-muted/50">
               <div className="flex items-center justify-between gap-2">
                 <LinkHeader link={link} />
                 <div>
@@ -57,13 +65,17 @@ export default function LinksList({ links, editLink }: { links: ILink[]; editLin
                   </DropdownMenu>
                 </div>
               </div>
-              <div className="flex gap-2 sm:pl-12 flex-wrap">
-                <Badge variant="secondary" title={new Date(link.createdAt).toLocaleString()} suppressHydrationWarning>
-                  <Clock className="h-4 w-4 mr-1" />
+              <div className="flex flex-wrap gap-2 sm:pl-12">
+                <Badge
+                  variant="secondary"
+                  title={new Date(link.createdAt).toLocaleString()}
+                  suppressHydrationWarning
+                >
+                  <Clock className="mr-1 h-4 w-4" />
                   {getRelativeTimeString(new Date(link.createdAt))}
                 </Badge>
                 <Badge variant="secondary">
-                  <BarChart className="h-4 w-4 mr-1" />
+                  <BarChart className="mr-1 h-4 w-4" />
                   {link.redirects} redirects
                 </Badge>
                 <Button size="sm" variant="outline" asChild>
@@ -84,7 +96,8 @@ export default function LinksList({ links, editLink }: { links: ILink[]; editLin
                 <AlertDialogAction
                   onClick={() => {
                     deleteLink(link.code);
-                  }}>
+                  }}
+                >
                   Continue
                 </AlertDialogAction>
               </AlertDialogFooter>

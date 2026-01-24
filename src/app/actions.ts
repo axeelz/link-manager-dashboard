@@ -1,15 +1,16 @@
 "use server";
 
-import type { INewLinkPayload } from "@/types";
+import type { NewLinkPayload } from "@/types";
 import { revalidatePath } from "next/cache";
+
 import { USER_AGENT } from "@/lib/constants";
 
-interface ICreateUpdateLinkResponse {
+interface CreateUpdateLinkResponse {
   code: string | null;
   error: string | null;
 }
 
-export async function createLink(payload: INewLinkPayload): Promise<ICreateUpdateLinkResponse> {
+export async function createLink(payload: NewLinkPayload): Promise<CreateUpdateLinkResponse> {
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/links`, {
     method: "POST",
     headers: {
@@ -32,7 +33,10 @@ export async function createLink(payload: INewLinkPayload): Promise<ICreateUpdat
   return { code: data[0].code, error: null };
 }
 
-export async function editLink(code: string, payload: INewLinkPayload): Promise<ICreateUpdateLinkResponse> {
+export async function editLink(
+  code: string,
+  payload: NewLinkPayload,
+): Promise<CreateUpdateLinkResponse> {
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/links/${code}`, {
     method: "PUT",
     headers: {
@@ -66,24 +70,6 @@ export async function deleteLink(code: string) {
 
   if (!res.ok) {
     throw new Error("Failed to delete link");
-  }
-
-  revalidatePath("/");
-
-  return;
-}
-
-export async function deleteAllLinks() {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/links`, {
-    method: "DELETE",
-    headers: {
-      Authorization: `Bearer ${process.env.API_KEY}`,
-      "User-Agent": USER_AGENT,
-    },
-  });
-
-  if (!res.ok) {
-    throw new Error("Failed to delete all links");
   }
 
   revalidatePath("/");

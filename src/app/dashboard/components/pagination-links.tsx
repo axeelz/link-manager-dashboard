@@ -1,5 +1,7 @@
 "use client";
 
+import { DoubleArrowLeftIcon, DoubleArrowRightIcon } from "@radix-ui/react-icons";
+
 import {
   Pagination,
   PaginationContent,
@@ -8,7 +10,6 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
-import { DoubleArrowLeftIcon, DoubleArrowRightIcon } from "@radix-ui/react-icons";
 
 export default function PaginationLinks({
   page,
@@ -37,7 +38,7 @@ export default function PaginationLinks({
           <PaginationPrevious href={`?page=${page - 1}`} aria-disabled={!hasPrev} />
         </PaginationItem>
 
-        <span className="font-medium text-sm px-2">
+        <span className="px-2 text-sm font-medium">
           Page {page} of {totalPages}
         </span>
 

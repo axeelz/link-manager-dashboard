@@ -1,5 +1,6 @@
-/** @type {import('next').NextConfig} */
-const nextConfig = {
+import type { NextConfig } from "next";
+
+const nextConfig: NextConfig = {
   async redirects() {
     return [
       {
@@ -18,6 +19,9 @@ const nextConfig = {
         pathname: "/icon/**",
       },
     ],
+  },
+  experimental: {
+    turbopackFileSystemCacheForDev: true,
   },
 };
 

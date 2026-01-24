@@ -2,26 +2,35 @@ import { Code, ExternalLink } from "lucide-react";
 import Link from "next/link";
 import React from "react";
 
-export const Widget = ({ title, description, link }: { title: string; description: string; link: string }) => {
+export const Widget = ({
+  title,
+  description,
+  link,
+}: {
+  title: string;
+  description: string;
+  link: string;
+}) => {
   return (
     <div className="">
-      <div className=" w-full relative max-w-xs">
-        <div className="absolute inset-0 h-full w-full bg-gradient-to-r from-blue-500 to-teal-500 transform scale-[0.80] bg-red-500 rounded-full blur-3xl" />
-        <div className="relative shadow-xl bg-gray-900 border border-gray-800  px-4 py-8 h-full overflow-hidden rounded-2xl flex flex-col justify-end items-start">
-          <div className="h-5 w-5 rounded-full border flex items-center justify-center mb-4 border-gray-500">
+      <div className=" relative w-full max-w-xs">
+        <div className="absolute inset-0 h-full w-full scale-[0.80] transform rounded-full bg-red-500 bg-gradient-to-r from-blue-500 to-teal-500 blur-3xl" />
+        <div className="relative flex h-full flex-col items-start  justify-end overflow-hidden rounded-2xl border border-gray-800 bg-gray-900 px-4 py-8 shadow-xl">
+          <div className="mb-4 flex h-5 w-5 items-center justify-center rounded-full border border-gray-500">
             <Code className="h-3 w-3 text-gray-300" />
           </div>
 
-          <h1 className="font-bold text-xl text-white mb-4 relative z-50">{title}</h1>
+          <h1 className="relative z-50 mb-4 text-xl font-bold text-white">{title}</h1>
 
-          <p className="font-normal text-base text-slate-500 mb-4 relative z-50">{description}</p>
+          <p className="relative z-50 mb-4 text-base font-normal text-slate-500">{description}</p>
 
           <Link
             href={link}
             target="_blank"
-            className="border px-4 py-1 rounded-lg border-gray-500 text-gray-300 inline-flex items-center gap-2">
+            className="inline-flex items-center gap-2 rounded-lg border border-gray-500 px-4 py-1 text-gray-300"
+          >
             <span>Explore</span>
-            <ExternalLink className="w-4 h-4 text-gray-300" />
+            <ExternalLink className="h-4 w-4 text-gray-300" />
           </Link>
         </div>
       </div>

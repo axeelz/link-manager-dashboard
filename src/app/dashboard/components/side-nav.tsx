@@ -1,9 +1,10 @@
 "use client";
 
-import Link from "next/link";
 import { Home, LineChart, Settings } from "lucide-react";
-import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
+import Link from "next/link";
 import { usePathname } from "next/navigation";
+
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { cn } from "@/lib/utils";
 
 export const navItems = [
@@ -24,8 +25,10 @@ export default function SideNav() {
                 href={item.href}
                 className={cn(
                   "flex h-9 w-9 items-center justify-center rounded-lg transition-colors hover:text-foreground md:h-8 md:w-8",
-                  (pathname === item.href && "bg-accent text-accent-foreground") || "text-muted-foreground"
-                )}>
+                  (pathname === item.href && "bg-accent text-accent-foreground") ||
+                    "text-muted-foreground",
+                )}
+              >
                 <item.icon className="h-5 w-5" />
                 <span className="sr-only">{item.title}</span>
               </Link>
@@ -39,7 +42,8 @@ export default function SideNav() {
           <TooltipTrigger asChild>
             <Link
               href="#"
-              className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8">
+              className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
+            >
               <Settings className="h-5 w-5" />
               <span className="sr-only">Settings</span>
             </Link>

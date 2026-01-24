@@ -1,8 +1,9 @@
+import type { Stats as StatsType } from "@/types";
 import { Forward, Link } from "lucide-react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import type { IStats } from "@/types";
 
-export default function Stats({ stats }: { stats: IStats }) {
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+
+export default function Stats({ stats }: { stats: StatsType }) {
   return (
     <div className="grid gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-4">
       <Card>

@@ -1,4 +1,4 @@
-export interface ILink {
+export interface Link {
   id: number;
   code: string;
   url: string;
@@ -6,23 +6,23 @@ export interface ILink {
   createdAt: string;
 }
 
-export interface IStats {
+export interface Stats {
   totalLinks: number;
   totalRedirects: number;
 }
 
-export interface INewLinkPayload {
+export interface NewLinkPayload {
   url: string;
   code?: string;
 }
 
-interface ILocation {
+export interface Location {
   city: string;
   regionName: string;
   country: string;
 }
 
-interface IUserAgent {
+export interface UserAgent {
   ua: string;
   browser: { name: string | undefined; version: string | undefined; major: string | undefined };
   device: { model: string | undefined; type: string | undefined; vendor: string | undefined };
@@ -31,17 +31,17 @@ interface IUserAgent {
   cpu: { architecture: string | undefined };
 }
 
-interface IRedirect {
+interface Redirect {
   id: number;
   linkId: number;
-  location: ILocation;
+  location: Location;
   language: string;
   referrer: string;
-  userAgent: IUserAgent;
+  userAgent: UserAgent;
   createdAt: string;
 }
 
-export interface IRedirectAndLink {
-  redirects: IRedirect;
-  links: ILink | null;
+export interface RedirectAndLink {
+  redirects: Redirect;
+  links: Link | null;
 }

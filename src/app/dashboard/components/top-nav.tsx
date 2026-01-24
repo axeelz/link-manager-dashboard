@@ -1,6 +1,11 @@
 "use client";
 
+import { PanelLeft, User } from "lucide-react";
+import { signOut } from "next-auth/react";
 import Link from "next/link";
+import { useState } from "react";
+
+import { navItems } from "@/app/dashboard/components/side-nav";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -11,16 +16,12 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { PanelLeft, User } from "lucide-react";
-import { signOut } from "next-auth/react";
-import { useState } from "react";
-import { navItems } from "@/app/dashboard/components/side-nav";
 
 export default function TopNav() {
   const [mobileSheetOpen, setMobileSheetOpen] = useState(false);
 
   return (
-    <header className="sticky z-10 top-0 flex h-14 items-center gap-4 border-b bg-background px-4 sm:static sm:h-auto sm:border-0 sm:bg-transparent sm:px-6">
+    <header className="sticky top-0 z-10 flex h-14 items-center gap-4 border-b bg-background px-4 sm:static sm:h-auto sm:border-0 sm:bg-transparent sm:px-6">
       <Sheet open={mobileSheetOpen} onOpenChange={setMobileSheetOpen}>
         <SheetTrigger asChild>
           <Button size="icon" variant="outline" className="sm:hidden">
@@ -35,7 +36,8 @@ export default function TopNav() {
                 key={item.title}
                 href={item.href}
                 onClick={() => setMobileSheetOpen(false)}
-                className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground">
+                className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground"
+              >
                 <item.icon className="h-5 w-5" />
                 {item.title}
               </Link>
@@ -47,7 +49,7 @@ export default function TopNav() {
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="outline" size="icon" className="overflow-hidden rounded-full">
-              <User className="h-9 w-9 p-2" />
+              <User className="h-5 w-5" />
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">

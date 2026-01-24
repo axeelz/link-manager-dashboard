@@ -1,8 +1,9 @@
 "use client";
 
+import { Forward, Link, Loader, RefreshCcw } from "lucide-react";
+
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Forward, Link, Loader, RefreshCcw } from "lucide-react";
 
 export default function Loading() {
   return (
@@ -41,7 +42,7 @@ export default function Loading() {
           <CardDescription>Here are all the redirections that are set up.</CardDescription>
         </CardHeader>
         <CardContent>
-          <div className="flex items-center justify-center h-44">
+          <div className="flex h-44 items-center justify-center">
             <Loader className="h-8 w-8 animate-spin text-muted-foreground" />
           </div>
         </CardContent>

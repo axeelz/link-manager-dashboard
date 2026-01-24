@@ -1,18 +1,27 @@
+import type { RedirectAndLink } from "@/types";
+import {
+  ArrowBigRightDash,
+  Globe,
+  Languages,
+  MapPin,
+  MonitorSmartphone,
+  MousePointerClick,
+} from "lucide-react";
+
 import { Badge } from "@/components/ui/badge";
-import { ArrowBigRightDash, Globe, Languages, MapPin, MonitorSmartphone, MousePointerClick } from "lucide-react";
-import type { IRedirectAndLink } from "@/types";
 import { getRelativeTimeString } from "@/lib/utils";
+
 import { LinkHeader } from "../../components/link-header";
 
-export default function RedirectsList({ redirects }: { redirects: IRedirectAndLink[] }) {
+export default function RedirectsList({ redirects }: { redirects: RedirectAndLink[] }) {
   return (
     <div className="flex flex-col [&>div]:border-b [&>div:last-child]:border-0">
       {redirects.length === 0 && (
-        <div className="flex items-center justify-center h-44">
+        <div className="flex h-44 items-center justify-center">
           <p className="text-muted-foreground">No redirect found</p>
         </div>
       )}
-      {redirects.map((data: IRedirectAndLink) => {
+      {redirects.map((data: RedirectAndLink) => {
         const redirect = data.redirects;
         const link = data.links;
 
@@ -24,7 +33,7 @@ export default function RedirectsList({ redirects }: { redirects: IRedirectAndLi
         try {
           const referrerURL = new URL(redirect.referrer);
           diplayedReferrer = `${referrerURL.host}${referrerURL.pathname}`;
-        } catch (e) {
+        } catch {
           diplayedReferrer = redirect.referrer;
         }
 
@@ -57,17 +66,27 @@ export default function RedirectsList({ redirects }: { redirects: IRedirectAndLi
         ];
 
         return (
-          <div key={redirect.id} className="flex flex-col gap-4 py-6 sm:px-4 sm:hover:bg-muted/50 transition-colors">
+          <div
+            key={redirect.id}
+            className="flex flex-col gap-4 py-6 transition-colors sm:px-4 sm:hover:bg-muted/50"
+          >
             <div className="mb-2">
-              <Badge variant="outline" title={new Date(redirect.createdAt).toLocaleString()} suppressHydrationWarning>
-                <MousePointerClick className="h-4 w-4 mr-1" />
+              <Badge
+                variant="outline"
+                title={new Date(redirect.createdAt).toLocaleString()}
+                suppressHydrationWarning
+              >
+                <MousePointerClick className="mr-1 h-4 w-4" />
                 {getRelativeTimeString(new Date(redirect.createdAt))}
               </Badge>
             </div>
             {link && <LinkHeader link={link} />}
             <div className="flex flex-col gap-2">
               {displayedInfo.map((info) => (
-                <div key={info.name} className="inline-flex items-center gap-2 text-muted-foreground text-sm">
+                <div
+                  key={info.name}
+                  className="inline-flex items-center gap-2 text-sm text-muted-foreground"
+                >
                   <info.icon className="h-4 w-4" />
                   <strong>{info.name}:</strong> {info.value}
                 </div>
