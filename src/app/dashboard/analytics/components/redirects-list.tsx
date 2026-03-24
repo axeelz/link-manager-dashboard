@@ -1,4 +1,3 @@
-import type { RedirectAndLink } from "@/types";
 import {
   ArrowBigRightDash,
   Globe,
@@ -7,6 +6,8 @@ import {
   MonitorSmartphone,
   MousePointerClick,
 } from "lucide-react";
+
+import type { RedirectAndLink } from "@/types";
 
 import { Badge } from "@/components/ui/badge";
 import { getRelativeTimeString } from "@/lib/utils";

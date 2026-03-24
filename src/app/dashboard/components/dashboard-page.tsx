@@ -1,8 +1,9 @@
 "use client";
 
-import type { Link as LinkType, NewLinkPayload, Stats } from "@/types";
 import { Loader, PlusCircle, RefreshCcw } from "lucide-react";
 import { useState } from "react";
+
+import type { Link as LinkType, NewLinkPayload, Stats } from "@/types";
 
 import { createLink, editLink } from "@/app/actions";
 import LinksList from "@/app/dashboard/components/links-list";

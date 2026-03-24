@@ -1,8 +1,9 @@
 "use client";
 
-import type { RedirectAndLink } from "@/types";
 import { ListFilter, RefreshCcw, X } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
+
+import type { RedirectAndLink } from "@/types";
 
 import RedirectsList from "@/app/dashboard/analytics/components/redirects-list";
 import PaginationLinks from "@/app/dashboard/components/pagination-links";

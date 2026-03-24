@@ -1,9 +1,10 @@
-import type { Link as LinkType } from "@/types";
 import { Forward } from "lucide-react";
 import Link from "next/link";
 
-import { LINK_MANAGER_URL } from "@/lib/constants";
+import type { Link as LinkType } from "@/types";
+
 import { FaviconImage } from "@/app/dashboard/components/favicon-image";
+import { LINK_MANAGER_URL } from "@/lib/constants";
 
 export function LinkHeader({ link }: { link: LinkType }) {
   const linkManagerUrl = new URL(LINK_MANAGER_URL);

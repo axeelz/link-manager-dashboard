@@ -27,7 +27,9 @@ export default function LoginForm() {
               <Label htmlFor="password">Password</Label>
               <Input name="password" id="password" type="password" />
             </div>
-            <Suspense><ErrorMessage /></Suspense>
+            <Suspense>
+              <ErrorMessage />
+            </Suspense>
           </CardContent>
           <CardFooter>
             <Button type="submit" className="w-full">

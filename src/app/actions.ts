@@ -1,7 +1,8 @@
 "use server";
 
-import type { NewLinkPayload } from "@/types";
 import { revalidatePath } from "next/cache";
+
+import type { NewLinkPayload } from "@/types";
 
 import { USER_AGENT } from "@/lib/constants";
 import { requireSession } from "@/lib/session";

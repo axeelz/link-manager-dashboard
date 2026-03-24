@@ -1,5 +1,6 @@
-import type { Stats as StatsType } from "@/types";
 import { Forward, Link } from "lucide-react";
+
+import type { Stats as StatsType } from "@/types";
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 

@@ -1,6 +1,7 @@
-import type { Link as LinkType } from "@/types";
 import { BarChart, Clock, MoreHorizontal } from "lucide-react";
 import Link from "next/link";
+
+import type { Link as LinkType } from "@/types";
 
 import { deleteLink } from "@/app/actions";
 import {
