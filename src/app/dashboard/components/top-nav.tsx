@@ -1,7 +1,6 @@
 "use client";
 
 import { PanelLeft, User } from "lucide-react";
-import { signOut } from "next-auth/react";
 import Link from "next/link";
 import { useState } from "react";
 
@@ -45,20 +44,24 @@ export default function TopNav() {
           </nav>
         </SheetContent>
       </Sheet>
-      <div className="ml-auto flex items-center justify-center">
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="outline" size="icon" className="overflow-hidden rounded-full">
-              <User className="h-5 w-5" />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuLabel>Logged in</DropdownMenuLabel>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem onClick={() => signOut()}>Logout</DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
-      </div>
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Button variant="outline" size="icon" className="ml-auto overflow-hidden rounded-full">
+            <User className="h-5 w-5" />
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent align="end">
+          <DropdownMenuLabel>Logged in</DropdownMenuLabel>
+          <DropdownMenuSeparator />
+          <DropdownMenuItem asChild>
+            <form method="post" action="/api/logout">
+              <button type="submit" className="w-full text-left">
+                Logout
+              </button>
+            </form>
+          </DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
     </header>
   );
 }

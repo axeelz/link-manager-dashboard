@@ -1,9 +1,6 @@
-import { getServerSession } from "next-auth";
-import { cookies } from "next/headers";
-import { redirect } from "next/navigation";
+import { Suspense } from "react";
 
 import ErrorMessage from "@/app/sign-in/error-message";
-import { authOptions } from "@/auth";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -16,21 +13,10 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
-export default async function LoginForm() {
-  const session = await getServerSession(authOptions);
-  const cookieStore = await cookies();
-
-  if (session) {
-    redirect("/dashboard");
-  }
-
-  const csrfTokenCookie = `${process.env.NODE_ENV == "production" ? "__Host-" : ""}next-auth.csrf-token`;
-  const csrfToken = cookieStore.get(csrfTokenCookie)?.value.split("|")[0];
-
+export default function LoginForm() {
   return (
     <main className="flex min-h-screen items-center justify-center bg-gray-50">
-      <form method="post" action="/api/auth/callback/credentials">
-        <input name="csrfToken" type="hidden" defaultValue={csrfToken} />
+      <form method="post" action="/api/login">
         <Card className="w-full max-w-sm">
           <CardHeader>
             <CardTitle className="text-2xl">Login</CardTitle>
@@ -41,7 +27,7 @@ export default async function LoginForm() {
               <Label htmlFor="password">Password</Label>
               <Input name="password" id="password" type="password" />
             </div>
-            <ErrorMessage />
+            <Suspense><ErrorMessage /></Suspense>
           </CardContent>
           <CardFooter>
             <Button type="submit" className="w-full">

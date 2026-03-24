@@ -4,6 +4,7 @@ import type { NewLinkPayload } from "@/types";
 import { revalidatePath } from "next/cache";
 
 import { USER_AGENT } from "@/lib/constants";
+import { requireSession } from "@/lib/session";
 
 interface CreateUpdateLinkResponse {
   code: string | null;
@@ -11,6 +12,7 @@ interface CreateUpdateLinkResponse {
 }
 
 export async function createLink(payload: NewLinkPayload): Promise<CreateUpdateLinkResponse> {
+  await requireSession();
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/links`, {
     method: "POST",
     headers: {
@@ -37,6 +39,7 @@ export async function editLink(
   code: string,
   payload: NewLinkPayload,
 ): Promise<CreateUpdateLinkResponse> {
+  await requireSession();
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/links/${code}`, {
     method: "PUT",
     headers: {
@@ -60,6 +63,7 @@ export async function editLink(
 }
 
 export async function deleteLink(code: string) {
+  await requireSession();
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/links/${code}`, {
     method: "DELETE",
     headers: {

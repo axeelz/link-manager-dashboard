@@ -1,9 +1,9 @@
 import type { Link as LinkType } from "@/types";
 import { Forward } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
 
 import { LINK_MANAGER_URL } from "@/lib/constants";
+import { FaviconImage } from "@/app/dashboard/components/favicon-image";
 
 export function LinkHeader({ link }: { link: LinkType }) {
   const linkManagerUrl = new URL(LINK_MANAGER_URL);
@@ -21,13 +21,7 @@ export function LinkHeader({ link }: { link: LinkType }) {
 
   return (
     <div className="flex gap-4">
-      <Image
-        src={`https://icon.horse/icon/${urlDomain}`}
-        alt="Website Icon"
-        height={32}
-        width={32}
-        className="h-8 w-8 rounded"
-      />
+      <FaviconImage domain={urlDomain} />
       <div className="flex flex-col gap-2 break-all">
         <Link
           href={`${process.env.NEXT_PUBLIC_API_URL}/${link.code}`}

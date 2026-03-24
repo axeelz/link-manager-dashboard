@@ -12,7 +12,7 @@ export default function ErrorMessage() {
 
   return (
     <p className="text-sm font-medium text-red-500">
-      {error == "CredentialsSignin" ? "Invalid password" : error}
+      {error === "invalid" ? "Invalid password" : error}
     </p>
   );
 }

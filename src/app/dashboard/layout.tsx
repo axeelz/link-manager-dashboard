@@ -1,18 +1,8 @@
-import { getServerSession } from "next-auth";
-import { redirect } from "next/navigation";
-
 import SideNav from "@/app/dashboard/components/side-nav";
 import TopNav from "@/app/dashboard/components/top-nav";
-import { authOptions } from "@/auth";
 import { TooltipProvider } from "@/components/ui/tooltip";
 
-export default async function DashboardLayout({ children }: { children: React.ReactNode }) {
-  const session = await getServerSession(authOptions);
-
-  if (!session) {
-    redirect("/api/auth/signin?callbackUrl=/dashboard");
-  }
-
+export default function DashboardLayout({ children }: { children: React.ReactNode }) {
   return (
     <TooltipProvider>
       <div className="flex min-h-screen w-full flex-col bg-muted/40">
