@@ -12,28 +12,35 @@ interface CreateUpdateLinkResponse {
   error: string | null;
 }
 
-export async function createLink(payload: NewLinkPayload): Promise<CreateUpdateLinkResponse> {
-  await requireSession();
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/links`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${process.env.API_KEY}`,
-      "User-Agent": USER_AGENT,
-    },
+const authHeaders = {
+  Authorization: `Bearer ${process.env.API_KEY}`,
+  "User-Agent": USER_AGENT,
+};
+
+async function mutateLink(
+  url: string,
+  method: "POST" | "PUT",
+  payload: NewLinkPayload,
+): Promise<CreateUpdateLinkResponse> {
+  const res = await fetch(url, {
+    method,
+    headers: { ...authHeaders, "Content-Type": "application/json" },
     body: JSON.stringify(payload),
   });
 
-  const data = await res.json();
-
   if (!res.ok) {
-    const errorMessage = data.message;
-    return { code: null, error: errorMessage };
+    const { message } = await res.json();
+    return { code: null, error: message };
   }
 
+  const data = await res.json();
   revalidatePath("/");
-
   return { code: data[0].code, error: null };
+}
+
+export async function createLink(payload: NewLinkPayload): Promise<CreateUpdateLinkResponse> {
+  await requireSession();
+  return mutateLink(`${process.env.NEXT_PUBLIC_API_URL}/links`, "POST", payload);
 }
 
 export async function editLink(
@@ -41,36 +48,14 @@ export async function editLink(
   payload: NewLinkPayload,
 ): Promise<CreateUpdateLinkResponse> {
   await requireSession();
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/links/${code}`, {
-    method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${process.env.API_KEY}`,
-      "User-Agent": USER_AGENT,
-    },
-    body: JSON.stringify(payload),
-  });
-
-  const data = await res.json();
-
-  if (!res.ok) {
-    const errorMessage = data.message;
-    return { code: null, error: errorMessage };
-  }
-
-  revalidatePath("/");
-
-  return { code: data[0].code, error: null };
+  return mutateLink(`${process.env.NEXT_PUBLIC_API_URL}/links/${code}`, "PUT", payload);
 }
 
 export async function deleteLink(code: string) {
   await requireSession();
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/links/${code}`, {
     method: "DELETE",
-    headers: {
-      Authorization: `Bearer ${process.env.API_KEY}`,
-      "User-Agent": USER_AGENT,
-    },
+    headers: authHeaders,
   });
 
   if (!res.ok) {
@@ -78,6 +63,4 @@ export async function deleteLink(code: string) {
   }
 
   revalidatePath("/");
-
-  return;
 }
